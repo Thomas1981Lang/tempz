@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax2....</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).on('click', '#b1', function (event) {
+            event.preventDefault();
+            var zahl = $('#zahl').val() * 1;
+            console.log('client', zahl);
+
+            $.ajax({
+                url: 'http://wifi.1av.at/527/r_get_html.php',
+                method: 'GET',
+                data: {
+                    x: zahl
+                }, // bezeichung x ist definert in der schnittstellenbeschreibung
+                dataType: 'html', //gibt datentyp an der wieder empfangen wird
+                success: function (responseDaten) { //responseDaten kann man selbst auswählen
+                    var response = JSON.parse(responseDaten);
+                    console.log('server', 'GET>HTML', response.x);
+                }
+            });
+
+
+            $.ajax({
+                url: 'http://wifi.1av.at/527/r_post_html.php',
+                method: 'POST',
+                data: {
+                    x: zahl
+                }, // bezeichung x ist definert in der schnittstellenbeschreibung
+                success: function (responseDaten) { //responseDaten kann man selbst auswählen
+                    var response = JSON.parse(responseDaten);
+                    console.log('server', 'POST>HTML', response.x);
+                }
+            });
+
+            $.ajax({
+                url: 'http://wifi.1av.at/527/r_post_json.php',
+                method: 'POST',
+                data: {
+                    x: zahl
+                }, // bezeichung x ist definert in der schnittstellenbeschreibung
+                dataType: 'json',
+                success: function (responseDaten) { //responseDaten kann man selbst auswählen
+                    // var response = JSON.parse(responseDaten);
+                    console.log('server', 'POST>JSON', responseDaten.x);
+                }
+            });
+
+
+            // Daten als JSON schicken, bei komplexer Datenstruktur
+            $.ajax({
+                url: 'http://wifi.1av.at/527/r_json_json.php',
+                method: 'POST', // ist auch POST!
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    x: zahl
+                }), // bezeichung x ist definert in der schnittstellenbeschreibung
+                dataType: 'json',
+                success: function (responseDaten) { //responseDaten kann man selbst auswählen
+                    // var response = JSON.parse(responseDaten);
+                    console.log('server', 'JSON>JSON', responseDaten.x);
+                }
+            });
+
+            //JSONP
+            //kein CORS   --- cross origin problem
+            $.ajax({
+                url: 'http://wifi.1av.at/527/r_get_jsonp.php',
+                method: 'GET',
+                data: {
+                    x: zahl
+                }, // bezeichung x ist definert in der schnittstellenbeschreibung
+                dataType: 'jsonp',
+                jsonpCallback: 'nameOfCallbackFunction',
+                success: function (responseDaten) { //responseDaten kann man selbst auswählen
+                    // var response = JSON.parse(responseDaten);
+                    console.log('server', 'GET>JSONP', responseDaten.x);
+                }
+            });
+
+        })
+    </script>
+    <style>
+        * {
+            font: 1.5rem Arial;
+        }
+    </style>
+
+</head>
+
+<body>
+    <input type="text" id="zahl" autocomplete="off">
+    <button id="b1">Abschicken</button>
+    <div id="ausgabe"></div>
+</body>
+
+</html>

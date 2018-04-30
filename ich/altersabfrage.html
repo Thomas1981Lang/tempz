@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Altersabfrage</title>
+
+    <script>
+        window.onload = function () {
+            document.getElementById('btn').onclick = function (event) {
+                event.preventDefault();
+
+                // 1.Variablen 
+                var alter;
+                var gender;
+                var auswertung;
+                var warnung = document.getElementById('gender').style.backgroundColor = 'red';
+
+
+                // reset
+                document.getElementById('alter').style.backgroundColor = '';
+                document.getElementById('gender').style.backgroundColor = '';
+
+                //2. Eingaben/Einlesen
+                alter = document.getElementById('alter').value;
+                console.log(alter);
+
+
+                gender = document.getElementById('gender').value;
+                console.log(gender);
+
+                //3. Verarbeitung;
+                if (!((gender === 'm') || (gender === 'w'))) {
+                    document.getElementById('gender').style.backgroundColor = 'red';
+                    document.getElementById('auswertung').innerHTML = 'Bitte nur m oder w eingeben';
+                } else {
+                    if (alter < 2 || alter > 120) {
+                        document.getElementById('alter').style.backgroundColor = 'red';
+                        document.getElementById('auswertung').innerHTML = 'Bitte nur einen Wert zwischen 2 und 120 eingeben';
+                    }
+                    if (alter >= 2 && alter <= 18) {
+                        if (gender === 'm') {
+                           console.log(gender);
+                           document.getElementById('auswertung').innerHTML = 'Du bist ein Bub';
+                        } else {
+                            console.log(gender);
+                            document.getElementById('auswertung').innerHTML = 'Du bist ein Mädchen'
+                        }
+                    }
+                    
+                    if (alter >= 19 && alter <= 120) {
+                        if (gender === 'm') {
+                           console.log(gender);
+                           document.getElementById('auswertung').innerHTML = 'Du bist ein Mann';
+                        } else {
+                            console.log(gender);
+                            document.getElementById('auswertung').innerHTML = 'Du bist eine Frau'
+                        }
+                    }
+
+                }
+
+
+
+            } // onclick
+        } //onload
+    </script>
+        
+    <style>
+        .box {
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        background-color: blue;
+        height: 80px;
+        width: 200px;
+        text-align: center;
+        }
+
+        p {
+        
+        color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Altersabfrage</h1>
+
+    <form>
+        <h2>Alter [ 2 - 120 ]</h2>
+        <input type="text" id="alter">
+
+        <h2>Geschlecht [ m , w ]</h2>
+        <input type="text" id="gender">
+        <br>
+        <br>
+        <button id="btn">Abfrage</button>
+    </form>
+    <div class="box">
+    <p id="auswertung"></p>
+    </div>
+</body>
+
+</html>

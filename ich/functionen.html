@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Functionen</title>
+</head>
+<script>
+    var umfang = function() {
+        var r, u;
+        r = document.getElementById('eingabe').value * 1;
+        u = 2 * r * Math.PI;
+        u = u.toFixed(2);
+        document.getElementById('ausgabe').innerHTML = u;
+    }
+
+    window.onload = function () {
+        document.getElementById('formular').onsubmit = function(event) {
+            event.preventDefault();
+            umfang();
+        }
+    }
+</script>
+<style></style>
+<body>
+    <form id="formular">
+    Radius: <input type="text" id="eingabe">
+    <button>Umfang</button>
+    </form>
+
+    <div id="ausgabe"></div>
+</body>
+</html>

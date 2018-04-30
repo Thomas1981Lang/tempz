@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?callback=initKarte"></script>
+    <script>
+        var karte;
+        var initKarte = function () {
+            var kartenoptionen = {
+                center: {
+                    lat: 48.2,
+                    lng: 16.4
+                },
+                zoom: 10
+            }
+            karte = new google.maps.Map($('#meineKarte').get(0), kartenoptionen);
+            
+
+            var meinMarker1 = new google.maps.Marker({
+                position: {
+                    lat: 48,
+                    lng: 16
+                },
+                map: karte,
+                label: 'A'
+            });
+
+            var meinMarker2 = new google.maps.Marker({
+                position: {
+                    lat: 48.1,
+                    lng: 16.45
+                },
+                map: karte,
+                label: 'B'
+            });
+
+            navigator.geolocation.getCurrentPosition(function (position) {
+                new google.maps.Marker({
+                    position: {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    },
+                    map: karte,
+                    label: 'X'
+                });
+            });
+
+        var cross;
+        $('#save').on('click', function (event) {
+        event.preventDefault; 
+        
+            cross = karte.getCenter();
+            var lati = cross.lat();
+            var longi = cross.lng();
+            console.log(cross.lng());
+
+            var storage = [];
+            storage.push() = lati;
+            storage.push() = longi;
+            console.log(storage);
+        
+            var meinMarker3 = new google.maps.Marker({
+                position: {
+                    lat: lati,
+                    lng: longi
+                },
+                map: karte,
+                label: 'v'
+            });
+        
+        });
+        };
+    </script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        #meineKarte {
+            width: 400px;
+            height: 300px;
+            border: 1px solid black;
+            position: relative;
+        }
+
+       /*  #cross_box {
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 150px;
+            left: 200px;
+            border: 1px solid black;
+            z-index: 1241235;
+        } */
+
+        #cross {
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            top: 150px;
+            left: 175px;
+            pointer-events: none;
+            
+        }
+    </style>
+</head>
+
+<body>
+    Hallo Google!
+    <div>
+        <div id="meineKarte">
+        </div>
+        
+            <canvas id="cross" width="50px" height="50px">
+
+            </canvas>
+        
+    </div>
+
+    <form>
+        <input type="text" name="ort" id="ort">
+        <button id="save">Ort speichern</button>
+    </form>
+
+
+    <script>
+        var kreuz = function (winkel) {
+
+            var ctx = $('#cross').get(0).getContext('2d');
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 3;
+            ctx.moveTo(25, 0);
+            ctx.lineTo(25, 50);          
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(0, 25);
+            ctx.lineTo(50, 25);          
+            ctx.stroke();
+        };
+
+        $(document).ready(function () {
+
+            kreuz();
+
+        });
+
+    </script>
+</body>
+
+</html>

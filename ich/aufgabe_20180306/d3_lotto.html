@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lotto</title>
+    <script>
+        window.onload = function () {
+            var td, tr, table, lotto, spalte, reihe, div;
+            var ausgewahlt = 0;
+            div = document.getElementById('ausgabe');
+            table = document.createElement('table');
+
+            div.appendChild(table);
+
+            lotto = 0;
+
+
+            /*             for (reihe = 1; reihe <= 45; reihe++) {
+                            tr = document.createElement('tr');
+                            table.appendChild(tr);
+
+                            if (lotto > 45) {
+                                break;
+                            }
+
+                            for (spalte = 0; spalte < 6; spalte++) {
+                                td = document.createElement('td');
+                                tr.appendChild(td);
+                                lotto++
+                                td.innerHTML = lotto;
+                                console.log(spalte);
+                                if (lotto > 45) {
+                                    td.innerHTML = 'fertig';
+                                }
+                            }
+                        } */
+
+            do {
+                tr = document.createElement('tr');
+                table.appendChild(tr);
+
+
+                for (spalte = 0; spalte < 6; spalte++) {
+
+                    td = document.createElement('td');
+                    tr.appendChild(td);
+                    lotto++
+                    td.innerHTML = lotto;
+                    td.onclick = function () {
+
+                        if (this.className == '') {
+
+                            if (ausgewahlt <= 6) {
+
+                                console.log(ausgewahlt);
+                                this.className = 'aktiv';
+                                ausgewahlt++
+                                console.log(ausgewahlt);
+                            }
+                            console.log('zu viel')
+                        } else {
+                            this.className = '';
+                        ausgewahlt--;
+                        console.log(ausgewahlt);
+                    } }
+                    if (lotto > 45) {
+                        td.innerHTML = 'leer';
+                    }
+                }
+            } while (lotto <= 45);
+
+
+
+
+        } //onload
+    </script>
+    <style>
+        td {
+            border: 1px black solid;
+            width: 50px;
+            height: 50;
+            text-align: center;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .aktiv {
+            background-color: green;
+
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+
+    <div id="ausgabe"></div>
+
+</body>
+
+</html>

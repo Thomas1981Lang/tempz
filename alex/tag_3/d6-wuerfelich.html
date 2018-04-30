@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Würfelpoker</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+        var randy = function (a, b) {
+            return Math.floor(Math.random() * (b - a + 1)) + a
+        }
+
+        /*****************************************************/
+        $(document).ready(function () {
+            var wurf;
+
+            var wurfelpics = [
+                'wuerfel1cols5.jpg',
+                'wuerfel2cols5.jpg',
+                'wuerfel3cols5.jpg',
+                'wuerfel4cols5.jpg',
+                'wuerfel5cols5.jpg',
+            ]
+
+
+
+
+            $('button').on('click', function (event) {
+                event.preventDefault();
+                var table = $('<table border=1>');
+                var tr = $('<tr>');
+
+
+                for (var i = 0; i < 5; i++) {
+                    var td = $('<td>');
+                    tr.append(td);
+                    var img = $('<img>');
+                    img.attr('src', 'wuerfel/wuerfel' + randy(1, 6) + 'cols5.jpg').appendTo(td);
+
+                    console.log(img);
+
+                }
+                $('#poker').append(table);
+                $(table).append(tr);
+
+            });
+
+        });
+    </script>
+    <style>
+        td {
+            border-collapse: collapse;
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <button>magst du spielen</button>
+    <div id="poker"></div>
+</body>
+
+</html>

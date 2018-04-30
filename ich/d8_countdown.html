@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Countdown</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+
+var countdown = function( c, id ) {
+    $(id).html(c);
+    
+    if( c == 0 ) return;
+
+    setTimeout ( function() {
+        countdown(--c, id);
+    }, 1000);
+}
+        
+
+var countdownInterval = function (c, id) {
+    $(id).html(c);
+    var meinInterval = setInterval( function() {
+        c--;
+    $(id).html(c);
+    if ( c == 0) {
+        clearInterval(meinInterval);
+    }
+    }, 1000, function() {
+        console.log('test');
+    });
+}
+
+
+var countdownRAF = function( c, id, start ) {
+    $(id).html(c);
+    
+    if( c == 0 ) return;
+
+    requestAnimationFrame ( function() {
+        if (Date.now() - start >= 1000) {
+            c--;
+            start = Date.now();
+
+        }
+        countdownRAF(c, id, start);
+    });
+}
+
+
+        $(document).on('click', '#btn', function (event) {
+            event.preventDefault();
+            
+            var counter = 5;
+            countdown (10, '#ausgabe2');
+            countdown (counter, '#ausgabe');
+            countdownInterval(3, '#ausgabe3')
+
+            var jetzt = new Date();
+            
+            countdownRAF( 1000, '#ausgabe4', Date.now());
+        });
+    </script>
+    <style>
+    *{
+        font: 25px Arial;
+    }
+    </style>
+</head>
+<body>
+    <button id="btn">Start Countdown</button>
+    <div id="ausgabe"></div>
+    <div id="ausgabe2"></div>
+    <div id="ausgabe3"></div>
+    <div id="ausgabe4"></div>
+</body>
+</html>

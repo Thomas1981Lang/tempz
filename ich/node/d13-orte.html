@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.3.1.min.js"></script>
+
+    <script>
+    
+        $(document).ready( function() {
+
+            var response;
+            console.log(response);
+            
+            var server = function () { $.ajax({
+                url: 'http://localhost:5000/orte',
+                method: 'POST',
+                data: {
+                    name: name,
+                    lat: lat,
+                    lng: lng
+                }, 
+                dataType: 'json',
+                success: function (respon) { 
+                   
+                    console.log('server', respon.result);
+                }
+            });
+
+          }   //server
+
+    server();
+
+            $.ajax({
+                url: 'http://localhost:5000/zeigeorte',
+                method: 'POST',
+                data: {
+                    
+                }, 
+                dataType: 'json',
+                success: function (response) { 
+                   $('#orte').html('');
+                    var table = $('<table>').appendTo('#orte');
+                        var tr;
+                        tr = $('<tr>');
+                            $('<th>').html('Name Ort').appendTo(tr);
+                            $('<th>').html('Lat').appendTo(tr);
+                            $('<th>').html('Lng').appendTo(tr);
+                            tr.appendTo('table');
+                        
+                            
+                   for( var i in response.orte) {
+                      
+
+                    tr = $('<tr>');
+                      $('<td>').html(response.orte[i].name).appendTo(tr);
+                      $('<td>').html(response.orte[i].lat).appendTo(tr);
+                      $('<td>').html(response.orte[i].lng).appendTo(tr);
+                       tr.appendTo('table');
+                       console.log('server', response.orte[i]);
+
+                   }
+                }
+            });
+            
+            $('button').on('click', function(event) {
+                event.preventDefault();
+                var name;
+                var lat;
+                var lng;
+                
+                name = $('#neu').val();
+                lat = $('#lat').val();
+                lng = $('#lng').val();
+                
+                console.log('name', name);
+                console.log('lat', lat);
+                console.log('lng', lng);
+
+                 /* for( var i in response.orte) {
+                    
+                    if (response != ''
+                        
+                        name == response.orte[i].name && lat == response.orte[i].lat && lng == response.orte[i].lng)
+
+                        console.log('fsfsfafadfa');
+                        
+
+                     } 
+ */
+
+            });
+
+        });
+    
+    </script>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        h1 {
+            transition: 2s;
+        }
+
+        h2 {
+            padding: 30px 0 15px 0;
+        }
+
+        hr {
+            margin-top: 90px;
+            padding: 15px;
+            border-style: dotted;
+            border-width: 4px;
+        }
+
+        #orte {
+            display: flex;
+            justify-content: center;
+        }
+
+        table {
+            width: 80%;
+            text-align: center;
+        } 
+
+
+        table tr:nth-child(even) {
+                
+                background-color: #eee;
+        }
+        table tr:nth-child(odd) {
+                background-color: #fff;
+        }
+        table th {
+                background-color: black;
+                color: white;
+        }
+        
+        th,
+        td {
+                padding: 15px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Orte Verwaltung mit NodeJS</h1>
+    <h2>neuer Ort</h2>
+    <form action="">
+        <label for="neu">Neuer Orte</label>
+        <input type="text" name="neu" id="neu">
+        <label for="lat">Lat</label>
+        <input type="text" name="lat" id="lat">
+        <label for="lng">Lng</label>
+        <input type="text" name='lng' id='lng'>
+        <button>SAVE</button>
+    </form>
+
+<hr>
+
+    <h2>gespeicherte Orte</h2>
+    <div id="orte"></div>
+
+</body>
+</html>

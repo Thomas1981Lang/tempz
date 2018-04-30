@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tabelle</title>
+</head>
+<script>
+    window.onload = function () {
+
+
+        var spalte, s, zeile, z, zahl, tabelle;
+        zahl = 0;
+        tabelle = '<table border=1>';
+        for (s = 1; s <= 5; s++) {
+            tabelle += '<tr>';
+            for (z = 1; z <= 4; z++) {
+                zahl++
+                tabelle += '<td>' + zahl + '</td>';
+                console.log(zahl);
+
+            } //zeile
+            tabelle += '</tr>';
+        } //spalte
+        tabelle += '</table>'
+
+        document.getElementById('ausgabe').innerHTML = tabelle;
+    } //onload
+</script>
+<style>
+    table, tr, td {
+        border: solid 1px red;
+        border-collapse: collapse;
+        padding: 10px;
+    }
+
+</style>
+
+<body>
+    <div id="ausgabe"></div>
+</body>
+
+</html>

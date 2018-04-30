@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax....</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+        var ajaxLoader = function () {
+            $('<div id="ajaxloader">')
+            .css({ 
+                position: 'fixed',
+                top: 0,
+                left: 0, 
+                right: 0,
+                bottom: 0,
+                background: 'rgba(255, 255, 255, 0.9)'
+            })
+            .appendTo('body')
+            .html('Bitte warten...<br><img src="ajax.gif">');
+        }
+
+
+        $(document).on('click', '#b1', function (event) {
+            event.preventDefault();
+
+            $(this).prop('disabled', true);
+            ajaxLoader();
+
+
+            var request = new XMLHttpRequest();
+            request.open('GET', 'http://wifi.1av.at/527/text.php');
+            request.send();
+
+            request.onreadystatechange = function() {
+                if ( request.readyState == 4 ) {
+                    $('#ausgabe').html(request.responseText);
+                    $('#b1').prop('disabled', false);
+                    $('#ajaxloader').remove();
+                }
+            }
+
+        });
+    </script>
+    <style>
+        * {
+            font: 1.5rem Arial;
+        }
+
+       
+    </style>
+</head>
+
+<body>
+
+    <button id="b1">Starte Request</button>
+    <div id="ausgabe"></div>
+
+</body>
+
+</html>

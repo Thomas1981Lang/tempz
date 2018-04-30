@@ -1,0 +1,75 @@
+Daten ORT =>
+{
+    "name": STRING,
+    "lat": NUMBER,
+    "lng: NUMBER
+}
+
+
+mehrere Orte => Array
+[
+    {Ort1},
+    {Ort2},
+    ...
+]
+
+
+mehrere Orte => JSON
+{
+    "orte": ARRAY[Orte];
+}
+
+------
+
+
+REQUEST Speichern
+URL: http://localhost:5000/orte
+Methode: POST
+Daten: POST-Daten (x-www-form-urlencoded)
+Response: JSON
+
+Request-Daten
+"name": STRING
+"lat": NUMBER
+"lng": NUMBER
+
+
+Response Success
+HTTPCode: 200
+{
+    "result": true
+}
+
+Response Error
+HTTPCode 500
+
+
+-----------
+
+REQUEST Zeige alle Orte
+URL: http://localhost:5000/zeigeorte
+Methode: POST
+Daten: keine
+Response: JSON
+
+Response Success
+HTTPCode: 200
+{
+    "orte": [
+        {
+            "name": STRING,
+            "lat": NUMBER,
+            "lng": NUMBER
+        }, ...
+     ];
+}
+
+----
+
+REQUEST UserInterface (=HTML!)
+URL: http://localhost:5000/
+Methode:GET
+Response-Format: HTML
+
+weitere Requests (Resourcen JS, CSS, Images)
+auf statische Files nicht vergessen!

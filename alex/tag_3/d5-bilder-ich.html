@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bilder</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+        var pics = [
+            'das-paradies-fuer-wintersportler.jpg',
+            'endlos-weite-schwuenge-ueber-perfekt-praeparierte-pisten-ziehen.jpg',
+            'erlebnishotel-fendels-familienhit.jpg',
+            'fruehlings-special-top-of-tyrol.jpg'
+        ];
+
+        $(document).ready(function () {
+
+            //alle images in div#bild einfügen
+            var i;
+            for (i in pics) {
+                $('<img>')
+                    .attr('src', './tirolbilder/' + pics[i])
+                    .appendTo('#bild')
+                    .hide();
+            }
+            //$('#bild img:first').show(); // first selector zusätzlich zu css
+
+            $('#bild img').eq(0).fadeIn();
+            var bild = 0;
+
+            $('#btn_nach').on('click', function () {
+                if (bild < pics.length - 1) {
+
+                    $('#bild img').eq(bild).hide();
+                    bild++
+                    $('#bild img').eq(bild).fadeIn();
+
+                } else {
+
+                    $('#bild img').eq(bild).hide();
+                    bild = 0;
+                    $('#bild img').eq(bild).fadeIn();
+                    
+                }
+
+            });
+
+            $('#btn_vor').on('click', function () {
+                if (bild > 0) {
+                    $('#bild img').eq(bild).hide();
+                    bild--
+                    $('#bild img').eq(bild).fadeIn();
+                } else {
+                    $('#bild img').eq(bild).hide();
+                    bild = pics.length - 1;
+                    $('#bild img').eq(bild).fadeIn();
+                }
+
+            });
+        });
+    </script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="bild">
+
+
+
+    </div>
+    <button id="btn_vor">voriges</button>
+    <button id="btn_nach">nächstes</button>
+</body>
+
+</html>

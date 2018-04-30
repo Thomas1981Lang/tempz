@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Farbabfrage</title>
+    <script>
+        window.onload = function () {
+            document.getElementById( 'formular' ).onsubmit = function (event) {  
+                event.preventDefault();
+                
+                var r, g, b, farbetext;
+
+                r = document.getElementById( 'farbeR' ).value;
+                console.log(farbeR);
+                g = document.getElementById( 'farbeG' ).value;
+                console.log(farbeG);
+                b = document.getElementById( 'farbeB' ).value;
+                console.log(farbeB);
+
+
+                farbetext = 'rgb(' + r + ',' + g + ',' + b + ')'
+            //    farbetext = `rgb(${r},${g},${b})`;
+ 
+
+                document.getElementById( 'seite').style.backgroundColor = farbetext;
+
+            } // onsubmit
+        } //onload
+    </script>
+    
+    <style>
+       /*  * {
+            margin: 0;
+            padding: 0;
+        } */
+    form {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        background-color: bisque;
+        height: 10rem;
+        padding: 10px;         
+    }
+    input {
+        width: 50px;
+    }
+    </style>
+</head>
+<body id="seite">
+    
+    <form id="formular">
+        <h1>Bitte nur englische Farbnamen oder # farbwerte eingeben</h1>
+        <input type="text" id="farbeR">
+        <input type="text" id="farbeG">
+        <input type="text" id="farbeB">
+        <button>Ändere Farbe</button>
+    </form>
+</body>
+</html>

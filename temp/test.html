@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var voc = [
+            ['dog', 'Hund'],
+            ['cat', 'Katze'],
+            ['snake', 'Schlange'],
+            ['lion', 'Löwe'],
+            ['mouse', 'Maus'],
+            ['bug', 'Käfer'],
+            ['ant', 'Ameise'],
+            ['horse', 'Pferd'],
+            ['cow', 'Kuh'],
+            ['sheep', 'Schaf']
+        ];
+
+        console.log(voc);
+        var newArr = [];
+        for (var i = 0; i < voc.length; i++) {
+            newArr = newArr.concat(voc[i]);
+        }
+
+        console.log(newArr);
+
+        function shuffle(newArr) {
+            var m = newArr.length,
+                t, i;
+
+            // While there remain elements to shuffle…
+            while (m) {
+
+                // Pick a remaining element…
+                i = Math.floor(Math.random() * m--);
+
+                // And swap it with the current element.
+                t = newArr[m];
+                newArr[m] = newArr[i];
+                newArr[i] = t;
+            }
+
+            return newArr;
+        }
+
+
+
+
+        console.log(shuffle(newArr));
+    </script>
+</body>
+
+</html>

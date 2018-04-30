@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Functionen</title>
+</head>
+<script src="wifi.funktionen.js"></script>
+<script>
+    window.onload = function () {
+        el('formular').onsubmit = function(event) {
+            event.preventDefault();
+            var kreisumfang, radius;
+            radius = el('eingabe').value * 1;
+            stellen = el('stellen').value * 1;
+            kreisumfang = umfang( radius );
+            kreisumfang = runden( kreisumfang, stellen );
+            el('ausgabe').innerHTML = kreisumfang;
+        }
+    }
+</script>
+<style>
+input {
+    width: 30px;
+}
+
+</style>
+<body>
+    <form id="formular">
+    Radius: <input type="text" id="eingabe">
+    Stellen: <input type="text" id="stellen">
+    <button>Umfang</button>
+    </form>
+
+    <div id="ausgabe"></div>
+</body>
+</html>

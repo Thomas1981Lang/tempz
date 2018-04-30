@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        var checkbox = function () {
+
+            var ctx = $('#myCanvas').get(0).getContext('2d');
+            ctx.clearRect(0, 0, 40, 40);
+            ctx.fillstyle = '#f00';
+            ctx.strokeStyle = '#f00';
+            ctx.fillRect(0, 0, 40, 40);
+            ctx.clearRect(5, 5, 30, 30);
+
+            /* ctx.lineWidth = 5;
+            ctx.moveTo(7, 22);
+            ctx.lineTo(17, 30);
+            ctx.lineTo(31, 7);
+            ctx.stroke();
+            
+            
+            ctx.strokeStyle = '#f00';
+
+            ctx.moveTo(7, 22);
+            ctx.lineTo(17, 30);
+            ctx.lineTo(31, 7);
+            ctx.stroke(); */
+
+        }
+
+        var check = function () {
+            var ctx = $('#myCanvas').get(0).getContext('2d');
+            ctx.clearRect(0, 0, 40, 40);
+            ctx.fillstyle = '#f00';
+            ctx.strokeStyle = '#f00';
+            ctx.fillRect(0, 0, 40, 40);
+            ctx.clearRect(5, 5, 30, 30);
+
+            ctx.lineWidth = 5;
+            ctx.moveTo(7, 22);
+            ctx.lineTo(17, 30);
+            ctx.lineTo(31, 7);
+            ctx.stroke();
+
+
+            ctx.strokeStyle = '#f00';
+
+            ctx.moveTo(7, 22);
+            ctx.lineTo(17, 30);
+            ctx.lineTo(31, 7);
+            ctx.stroke();
+        }
+
+        var checkAnimation = function () {
+            var ctx = $('#myCanvas').get(0).getContext('2d');
+            ctx.clearRect(0, 0, 40, 40);
+            ctx.fillstyle = '#f00';
+            ctx.strokeStyle = '#f00';
+            ctx.fillRect(0, 0, 40, 40);
+            ctx.clearRect(5, 5, 30, 30);
+            ctx.lineWidth = 5;
+            var startX1 = 7;
+            var startY1 = 22;
+            var endX1 = 31;
+            var endY1 = 7
+            var amount = 0;
+
+            function repeatOften() {
+                do {
+                amount += 0.05;
+                console.log(amount);
+                ctx.moveTo(startX1, startY1);
+                ctx.lineTo(startX1 + (endX1 - startX1) * amount, startY1 + (startY1 - endY1) * amount);
+                ctx.stroke();
+                console.log(startX1 + (endX1 - startX1) * amount);
+
+                requestAnimationFrame(repeatOften);
+            } while(((startX1 + (endX1 - startX1) * amount) >= endX1) && ((startY1 + (startY1 - endY1) * amount) >= endY1));
+            }
+            requestAnimationFrame(repeatOften);
+
+        }
+
+        $(document).ready(function () {
+
+            checkbox();
+            $('#myCanvas').on('click', function () {
+                $('#myCanvas').toggleClass('checked');
+                if ($('#myCanvas').hasClass('checked')) {
+                    checkAnimation();
+                } else {
+
+                    checkbox();
+                }
+            });
+
+        });
+    </script>
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="400">
+
+    </canvas>
+</body>
+
+</html>

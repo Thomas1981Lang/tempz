@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ECMAS 6</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        var countdown = function (x, id, callback) {
+            var count = function () {
+                $('#' + id).html(x--);
+                if (x >= 0) {
+                    setTimeout(count, 1000);
+                } else {
+                    callback();
+                }
+            }
+            count();
+        }
+
+        $(document).ready(function () {
+            countdown(3, 'c1', function () {
+                countdown($('#c2').html() * 1, 'c2', function () {
+                    countdown($('#c3').html() * 1, 'c3', function () {
+                        $('#c1, #c2, #c3').css({
+                            color: 'red'
+                        })
+                    })
+                });
+            });
+        });
+
+
+
+
+
+        var countdownPromise = function (x, id) {
+            return new Promise(function (resolve, reject) {
+                var count = function () {
+                $('#' + id).html(x--);
+                if (x >= 0) {
+                    setTimeout(count, 1000);
+                } else {
+                    resolve();
+                }
+            }
+            count();
+            });
+        }
+
+
+$(document).ready(function () {
+   
+   /*  var p4 = countdownPromise(3, 'c4');
+    var p5 = countdownPromise( $('#c5').html()*1, 'c5');
+    var p6 = countdownPromise( $('#c6').html()*1, 'c6'); */
+
+    countdownPromise (3, 'c4')
+        .then(function() {return countdownPromise( $('#c5').html()*1, 'c5'); })
+        .then(function() {return countdownPromise( $('#c6').html()*1, 'c6'); })
+        .then(function() {$('#c4, #c5, #c6').css({color: 'red'})})
+});
+
+    </script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="c1"></div>
+    <div id="c2">6</div>
+    <div id="c3">5</div>
+
+
+
+    <div id="c4"></div>
+    <div id="c5">6</div>
+    <div id="c6">5</div>
+</body>
+
+</html>

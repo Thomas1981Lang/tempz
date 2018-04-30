@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="wifi.funktionen.js"></script>
+    <script>
+        window.onload = function () {
+            var zufall;
+            var versuche = 0;
+            zufall = Math.floor(Math.random() * 10) + 1;
+            console.log(zufall);
+
+                el('submit').onclick = function (event) {
+                    event.preventDefault();
+                    
+                    var geraten, info;
+                    geraten = el('raten').value * 1;
+                    
+                    if (zufall === geraten) {
+                        el('ausgabe').innerHTML = 'richtig';
+                    } else {
+                        versuche++
+                        if (geraten < zufall) {
+                            el('ausgabe').innerHTML = 'zu klein';
+                        } else {
+                            el('ausgabe').innerHTML = 'zu groß';
+                        }
+                        console.log(versuche);
+
+
+                    }
+                    
+
+
+
+            } //onsubmit
+        } //onload
+    </script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <h1>Willkommen</h1>
+    <h2>Erraten Sie eine Zahl zwischen 1 - 10</h2>
+
+    <form>
+        hier die Zahl eingeben:
+        <input type="text" id="raten">
+        <button id="submit">Versuchen</button>
+    </form>
+    <div id="ausgabe"></div>
+
+
+</body>
+
+</html>

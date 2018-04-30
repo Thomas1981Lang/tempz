@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="jquery-rot.1.0.0.js"></script>
+    <script>
+        $.fn.colorize = function (options) {
+            var settings = $.extend({
+                r: 0,
+                g: 0,
+                b: 0
+            }, options)
+
+            var farbe = 'rgb(' + settings.r + ',' + settings.g + ',' + settings.b + ')';
+            console.log(farbe);
+            this.css({
+                color: farbe
+            });
+
+            return this;
+        }
+
+        /*  
+        $.fn.colorize = function(r,g,b) {
+
+            var farbe = 'rgb('+r+','+g+','+b+')';
+            console.log(farbe);
+            this.css({color:farbe});
+            return this;
+        }
+     */
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            // $('p:first').css({color:'red'});
+
+
+            $('p + p').rot();
+            $('p:first').colorize({b:50, r:40});
+
+            this.each
+
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <p>Absatz1: Blindtext</p>
+    <p>Absatz2: Blindtext</p>
+    <p>Absatz3: Blindtext</p>
+</body>
+
+</html>

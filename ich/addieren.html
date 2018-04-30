@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Addiere zwei Zahlen</title>
+
+    <script>
+        window.onload = function () {
+            document.getElementById('btn').onclick = function (event) {
+            event.preventDefault(); //verhindert abschicken vom Formular
+                // 1. Variablen
+                var eingabe1, eingabe2, ausgabe;
+
+                // 2. Eingabe/Einlesen
+                document.getElementById('z1').style.backgroundColor = '';
+                document.getElementById('z2').style.backgroundColor = '';
+                var eingabe1 = document.getElementById('z1').value; // * 1 nur dann verwenden wenn man eine zahl braucht
+                eingabe1 = parseInt(eingabe1);
+                console.log(eingabe1);
+                var eingabe2 = document.getElementById('z2').value;
+                console.log(eingabe2);
+                eingabe2 = parseInt(eingabe2);
+                // 3. Verarbeiten/Bereichnen
+                ausgabe = eingabe1 + eingabe2;
+                console.log(ausgabe);
+
+
+
+                // 4. Ausgabe
+                if (isNaN(eingabe1)) {
+                    document.getElementById('z1').style.backgroundColor = 'red';
+                }
+                
+                if (isNaN(eingabe2)) {
+                    document.getElementById('z2').style.backgroundColor = 'red';
+                }
+
+                if (eingabe1 === '') {
+                    document.getElementById('z1').style.backgroundColor = 'red';
+                }
+                if (eingabe2 === '') {
+                    document.getElementById('z2').style.backgroundColor = 'red';
+                }
+
+                if (ausgabe > 0 || ausgabe < 0 ) {
+                    //Ja
+                    document.getElementById('ausgabe').innerHTML = 'Die Summe ist ' + eingabe1 + ' + ' + eingabe2 + ' = <strong>' + ausgabe + '!</strong>';
+                }   else {
+                    //NEIN
+                    document.getElementById('ausgabe').innerHTML = 'Bitte nur Zahlen eingeben!';
+                }
+            } //onclick #btn
+
+        } //onload
+    </script>
+
+    <style>
+ strong {
+     color: red; 
+     font-weight: bolder;
+ }
+ 
+ 
+
+    </style>
+</head>
+
+<body>
+    <h1>Addieren</h1>
+    <form>
+        <input type="text" id="z1">
+        <br>
+        <input type="text" id="z2">
+        <button id="btn">Summe</button>
+    </form>
+    <div id="ausgabe"></div>
+</body>
+
+</html>

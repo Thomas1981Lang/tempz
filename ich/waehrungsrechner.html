@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Währungsrechner</title>
+    <script src="wifi.funktionen.js"></script>
+    <script>
+        window.onload = function() {
+            el( 'formular').onchange = function( event ) {
+                var ausgangUnit, ausgangValue, changedUnit, changedValue;
+
+                ausgangValue = el('ausgangValue').value * 1;
+                console.log(ausgangValue);
+                ausgangUnit = el('ausgangUnit').value;
+                console.log(ausgangUnit);
+                changedUnit = el('changedUnit').value;
+                console.log(changedUnit);
+                el('changedValue').value = '';
+                
+
+                if (( ausgangUnit == 'eur') && ( changedUnit == 'us')) {
+                    changedValue = runden(ausgangValue * 1.23, 2);
+                    el('changedValue').value = changedValue;
+                    console.log(changedValue);
+                } else if (( ausgangUnit == 'us') && ( changedUnit == 'eur')) {
+                    changedValue = runden(ausgangValue * 0.81, 2);
+                    el('changedValue').value = changedValue;
+                    console.log(changedValue);
+                } else {
+                    el('changedValue').innerHTML = 'test';
+                }
+                   
+            } //event
+        } //onload
+    
+    </script>
+</head>
+<body>
+    <form id="formular">
+            <select id="ausgangUnit">
+                    <option value="eur">Euro</option>
+                    <option value="us">US-Doller</option>
+            </select>
+            <input type="text" id="ausgangValue">
+            <input type="text" id="changedValue">
+            <select id="changedUnit">
+                    <option value="us">US-Doller</option>
+                    <option value="eur">Euro</option>
+            </select>
+    </form>
+</body>
+</html>

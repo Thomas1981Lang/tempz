@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ECMAS 6</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        //Arrow Funktion
+        var quadrat = function (a) {
+            return a * a;
+        }
+
+        //ES6
+        var q = a => a * a;
+        console.log(quadrat(5), q(5));
+
+
+        var mitCB = function (x, callback) {
+            if (isFinite(x)) {
+                return callback(x);
+
+            } else
+                return false;
+        }
+
+        var z = mitCB(5, function (j) {
+            return j * j;
+        });
+
+
+        var h = mitCB(5, j => j + 5); //bei callbacks wo schnell was passieren soll
+
+
+        // ----- OOP mit ES6 --------
+
+        var tier = {
+            beine: 4,
+            removeBein: function () {
+                this.beine--;
+            }
+        }
+
+        console.log(tier);
+
+        var o1 = {}; //Objektliteral
+        var o2 = new Object(); // ES5
+        var o3 = Object.create(Object.prototype); //ES6
+        var o4 = Object.create({});
+        var o5 = Object.create(null);
+
+        console.log(o1, o2, o3, o4, o5);
+
+
+        //Eigenschaften von Objekten
+        var Kreis = function (r) {
+            this.radius = r;
+        };
+
+        Object.defineProperty(Kreis.prototype, 'umfang', {
+            enumerable: false,
+            writable: true,
+            value: 0
+        });
+
+        var k = new Kreis(3);
+        for (var i in k) { // alle enumerierbaren Elemente
+            console.log(i + ': ' + k[i]);
+        }
+
+        class Tier {
+            constructor(beine) {
+                this.beine = beine;
+                this.toString = function () {
+                    return 'Tier hat ' + this.beine + ' Beine.';
+                }
+            }
+        }
+
+        class TierMitNamen extends Tier {
+            constructor(beine, name) {
+                super(beine); // ruft Konstruktor von Tier auf
+                this.toString = function() { return name + ' hat ' + this.beine + ' Beine.';}
+            }
+        }
+
+        class SpinneMitNamen extends TierMitNamen {
+            constructor (name) {
+                super(8, name);
+            }
+        }
+
+        var Fritzi = new Tier(4);
+        alert(Fritzi);
+        var Fritzi = new TierMitNamen(4, 'Fritzi');
+        alert(Fritzi);
+        var Fritzi = new SpinneMitNamen('Fritzi');
+        alert(Fritzi);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

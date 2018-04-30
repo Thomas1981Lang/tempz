@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Datenverwaltung</title>
+    <link rel="stylesheet" href="./d4-datenverwaltung.css">
+    <script>
+        window.onload = function () {
+            var homelink, eingabelink, ausgabelink, home, eingabe, ausgabe, vorname, nachname, email, person, tabelle;
+            var personen = [];
+
+            tabelle = document.getElementById('tabelle');
+            homelink = document.getElementById('homelink');
+            eingabelink = document.getElementById('eingabelink');
+            ausgabelink = document.getElementById('ausgabelink');
+            home = document.getElementById('home');
+            eingabe = document.getElementById('eingabe');
+            ausgabe = document.getElementById('ausgabe');
+
+            var blendeAlleAus = function () {
+                home.className = 'hidden';
+                eingabe.className = 'hidden';
+                ausgabe.className = 'hidden';
+                homelink.className = '';
+                eingabelink.className = '';
+                ausgabelink.className = '';
+            }
+
+
+            homelink.onclick = function () {
+                blendeAlleAus();
+                home.className = 'show';
+                homelink.className = 'aktiv';
+
+
+            } //onclick homelink
+
+            eingabelink.onclick = function () {
+                blendeAlleAus();
+                eingabe.className = 'show';
+                eingabelink.className = 'aktiv';
+            }
+
+            ausgabelink.onclick = function () {
+                blendeAlleAus();
+                ausgabe.className = 'show';
+                ausgabelink.className = 'aktiv';
+            }
+
+            document.getElementById('formular').onsubmit = function (event) {
+                event.preventDefault();
+
+                vorname = document.getElementById('vorname').value;
+                console.log(vorname);
+                nachname = document.getElementById('nachname').value;
+                console.log(nachname);
+                email = document.getElementById('email').value;
+                console.log('email');
+
+                person = {
+                    vn: vorname,
+                    nn: nachname,
+                    mail: email
+                };
+                console.log(person);
+
+                personen.push(person);
+                console.log(personen);
+
+                
+                var i;
+                for (i = 0; i < personen.length; i++) {
+                    
+                    tr = document.createElement( 'tr' );
+                    
+                    td = document.createElement('td');
+                    td.innerHTML = person.vn;
+                    console.log(person.vn);
+                    tr.appendChild( td );
+                    
+                    td = document.createElement('td');
+                    td.innerHTML = person.nn;
+                    console.log(person.nn);
+                    tr.appendChild( td );
+                    
+                    td = document.createElement('td');
+                    td.innerHTML = person.mail;
+                    console.log(person.mail);
+                    tr.appendChild( td );
+                    tabelle.appendChild( tr );
+                    
+                    console.log(person);
+                }
+
+
+
+
+
+
+
+
+            } //onsubmit
+        } //onload
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        section {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+
+        /*       nav {
+            background-color: bisque;
+        }
+
+        ul {
+            display: flex;
+            flex-direction: row;
+
+        }
+
+        li {
+            padding: 30px;
+            list-style: none;
+
+        }
+
+        section {
+            background-color:blanchedalmond;
+            
+        } */
+    </style>
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li class="aktiv" id="homelink">
+                <a href="#home">Home</a>
+            </li>
+            <li id="eingabelink">
+                <a href="#eingabe">Eingabe</a>
+            </li>
+            <li id="ausgabelink">
+                <a href="#ausgabe">Ausgabe</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <!-- HOME  -->
+    <section class="aktiv" id="home">
+        <h1>Datenverwaltung</h1>
+        <p>Wifi Javascript ...</p>
+    </section>
+
+
+    <!-- Eingabe -->
+    <section class="hidden" id="eingabe">
+        <h1>Eingabe</h1>
+
+        <form id="formular" action="">
+            <div>
+                <label for="">Vorname: </label>
+                <input id="vorname" type="text">
+            </div>
+            <div>
+                <label for="">Nachname: </label>
+                <input id="nachname" type="text">
+            </div>
+            <div>
+                <label for="">Email: </label>
+                <input id="email" type="text">
+            </div>
+            <button id="btn">Abschicken</button>
+
+
+        </form>
+
+    </section>
+
+
+    <!-- Ausgabe -->
+    <section class="hidden" id="ausgabe">
+        <h1>Ausgabe</h1>
+
+        <table id="tabelle">
+            <tr>
+                <td>Vorname</td>
+                <td>Nachname</td>
+                <td>Email</td>
+            </tr>
+
+        </table>
+    </section>
+
+
+</body>
+
+</html>

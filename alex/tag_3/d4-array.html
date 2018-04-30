@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array</title>
+
+    <style></style>
+
+    <script>
+        var zahlen = []; // =ne Array();
+        zahlen[0] = 5;
+        zahlen.push(10);
+        zahlen[2] = 45;
+        zahlen.push(20);
+        zahlen.push(13);
+
+        console.log(zahlen[1]);
+        console.log(zahlen);
+
+        // ? letzter Wert ?
+        var positionLetzter = zahlen.length - 1;
+        var wertLetzter = zahlen[positionLetzter];
+
+        window.onload = function () {
+            var i, ausgabe = '', max = 0;
+                
+            for ( i = 0; i < zahlen.length; i++) {
+                if ( zahlen[i] > max ) {
+                    max = zahlen[i];
+                }
+            }
+        console.log(max);
+
+            for (i = 0; i < zahlen.length; i++) {
+
+                if (zahlen[i] == max) {
+                    ausgabe += '<div style="color:red;>' + zahlen[i] + '<div>';    
+                }
+                ausgabe += '<div style="color:black;>' + zahlen[i] + '<div>';
+                }
+            
+                
+
+
+
+            // for ( i = 0; i < zahlen.length; i++) {
+            //     ausgabe += zahlen[ i ] + '<br>';
+            //     if (ausgabe == (sortiert.length - 1)) {
+            //         document.getElementById( 'ausgabe' ).style.color = red;
+            //        console.log('test');
+            //     }        
+            // }
+
+
+            // var farbe = ausgabe.search('45');
+
+
+
+
+            document.getElementById('ausgabe').innerHTML = ausgabe;
+
+        } // onload
+    </script>
+
+</head>
+
+<body>
+    <div id="ausgabe"></div>
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="./jquery-ui-1.12.1.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="./jquery-ui-1.12.1.custom/jquery-ui.theme.min.css">
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script src="./jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script>
+        var macheAlertDialog = function (text, titel) {
+            titel = titel || 'ERROR';
+            $("#alert-dialog").attr('title', titel);
+
+            $("#alert-dialog p").html(text);
+            $("#alert-dialog").dialog({
+                modal: true,
+                buttons: {
+                    OK: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+
+        window.alert = macheAlertDialog;
+
+        $(document).ready(function () {
+            /*------------ TABS --------*/
+            $('#quizcms').tabs();
+
+            $("#accordion").accordion();
+            //$('#alle').html('');
+            /*------------ REQUEST NEUE FRAGE ---------*/
+
+            $('#quizcms').tabs({
+                activate: function (event, ui) {
+                    if (ui.newPanel.attr('id') == 'alle') {
+                        $.ajax({
+                            url: 'http://wifi.1av.at/527/quizcms.php',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                anfragetyp: 'lesen',
+                                db: 'tom'
+                            }),
+                            dataType: 'json',
+                            success: function (responseDaten) {
+                                var fragen = responseDaten.fragen;
+                                console.log(fragen[1].frage);
+                                console.log('server', responseDaten.fragen[0]);
+
+                                for (var id in responseDaten.fragen) {
+                                    var fragenr = responseDaten.fragen[id]['id'];
+                                    var frageVServer = responseDaten.fragen[id]['frage'];
+                                    var richtigVServer = responseDaten.fragen[id][
+                                        'richtig'
+                                    ];
+                                    var accordion = $('<div>').attr('id', '#accordion');
+                                    var accordionh3 = $('<h3>').appendTo(accordion);
+                                    $('<span>').html(fragenr + ' ').appendTo(accordionh3);
+                                    $('<span>').html(frageVServer).appendTo(accordionh3);
+                                    var accordiondiv = $('<div>').appendTo(accordionh3);
+                                    $('<h4>').html('Antworten').appendTo(accordiondiv);
+
+                                    for (var antwort in responseDaten.fragen[id][
+                                            'antworten'
+                                        ]) {
+                                        var antwortVServer = responseDaten.fragen[id][
+                                            'antworten'
+                                        ][antwort];
+                                        var accordionp = $('<p>').html(antwortVServer).appendTo(
+                                            accordiondiv);
+                                        if (richtigVServer == antwort) {
+                                            $('<span>').html(' Richtig').appendTo(
+                                                accordionp);
+                                            console.log('dadadadadad');
+                                        }
+
+                                        console.log('forininin', antwortVServer);
+                                    }
+                                    var schwierig = responseDaten.fragen[id][
+                                        'schwierigkeit'
+                                    ]
+                                    $('<p>').html('Schwierigkeitsgrad: ' + schwierig).appendTo(
+                                        accordiondiv);
+
+                                    var btnEntfernen = $('<button>').html('Löschen');
+                                    var btnEditieren = $('<button>').html('Editieren');
+
+                                    $(btnEntfernen).appendTo(accordiondiv);
+                                    $(btnEditieren).appendTo(accordiondiv);
+
+                                    $("#accordion").accordion('refresh');
+                                    console.log('hallo', frageVServer);
+                                    console.log('fragenr', fragenr);
+                                    console.log('richtig', richtigVServer);
+                                    console.log('schwierig', )
+
+
+                                }
+
+
+
+
+
+
+                            }
+                        });
+                    }
+
+                }
+            });
+
+
+            $('#btn').on('click', function (event) {
+                event.preventDefault();
+
+                var test = $('input[name="richtig"]:checked').val();
+                console.log(test);
+
+
+                $('#btn').prop('disabled', true);
+                $.ajax({
+                    url: 'http://wifi.1av.at/527/quizcms.php',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        anfragetyp: 'neu',
+                        frage: $('#frage').val(),
+                        antworten: [
+                            $('#antwort1').val(),
+                            $('#antwort2').val(),
+                            $('#antwort3').val(),
+                            $('#antwort4').val(),
+                        ],
+                        richtig: $('input[name="richtig"]:checked').val(),
+                        schwierigkeit: $('#schwierig').val(),
+                        db: 'tom'
+                    }),
+                    dataType: 'json',
+                    success: function (responseDaten) {
+
+                        console.log('server', responseDaten);
+
+                        if (responseDaten.id) {
+                            alert('Daten wurden gespeichert.', 'ERFOLG');
+                            $('#neu form').get(0).reset();
+                            $('#btn').prop('disabled', false);
+                        } else {
+
+                        }
+                    },
+                    error: function () {
+                        alert('Geht was nicht...');
+                        $('#btn').prop('disabled', false);
+                    },
+                    complete: function () {
+                        $('#btn').prop('disabled', false);
+                    }
+                });
+
+            });
+
+
+
+
+        });
+    </script>
+    <style>
+        #quizcms {
+            min-height: calc(100vh - 40px);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="quizcms">
+        <ul>
+            <li>
+                <a href="#home">Home</a>
+            </li>
+            <li>
+                <a href="#alle">Zeige alle Fragen</a>
+            </li>
+            <li>
+                <a href="#neu">Neue Fragen</a>
+            </li>
+        </ul>
+        <div id="home">
+            <h1>Willkommen im QuizCMS</h1>
+            <p>Nur für berechtigte User!</p>
+        </div>
+        <div id="alle">
+            <div id="accordion">
+
+            </div>
+        </div>
+        <div id="neu">
+            <form method="got">
+                <label for="frage">Frage</label>
+                <input type="text" name="frage" id="frage">
+                <p>Antworten</p>
+                <fieldset>
+                    <div class="antwort">
+                        <input type="radio" id="check1" name="richtig" value="0">
+                        <input type="text" name="antwort1" id="antwort1">
+                    </div>
+                    <div class="antwort">
+                        <input type="radio" id="check2" name="richtig" value="1">
+                        <input type="text" name="antwort2" id="antwort2">
+                    </div>
+                    <div class="antwort">
+                        <input type="radio" id="check3" name="richtig" value="2">
+                        <input type="text" name="antwort3" id="antwort3">
+                    </div>
+                    <div class="antwort">
+                        <input type="radio" id="check4" name="richtig" value="3">
+                        <input type="text" name="antwort4" id="antwort4">
+                    </div>
+                    <select id="schwierig">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                    <button id="btn">Abschicken</button>
+                </fieldset>
+            </form>
+        </div>
+
+
+    </div>
+
+    <div id="alert-dialog" title="ERROR">
+        <p>Das ist die Fehlermeldung</p>
+    </div>
+</body>
+
+</html>

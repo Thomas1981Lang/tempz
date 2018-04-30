@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script>
+        $(document).on('click', 'button', function () {
+
+            $.ajax({
+                url: 'http://localhost:5000',
+                method: 'POST',
+                data: {
+                    neu: $('#neu').val(),
+                    lat: $('#lat').val(),
+                    lng: $('#lng').val(),
+                },
+                dataType: 'html',
+                success: function (daten) {
+                    var response = JSON.parse(daten);
+                    
+                }
+            })
+
+
+
+            $.ajax({
+                url: 'http://localhost:5000',
+                method: 'GET',
+                data: {
+                    
+                },
+                dataType: 'html',
+                success: function (responseDaten) {
+                   
+                    
+                }
+            })
+
+            }); //document.on.click
+    </script>
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <h1>Orte</h1>
+    <form action="">
+        <label for="neu">Neuer Orte</label>
+        <input type="text" name="neu" id="neu">
+        <label for="lat">Lat</label>
+        <input type="text" name="lat" id="lat">
+        <label for="lng">Lng</label>
+        <input type="text" name='lng' id='lng'>
+        <button>SAVE</button>
+    </form>
+
+</body>
+
+</html>

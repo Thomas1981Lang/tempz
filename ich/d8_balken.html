@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Balken</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+
+/* var countdownBar = function (sekunden) {
+    var stufen = 100;
+    var meinI =setInterval(function(){
+        var wert = $('#bar').val();
+        console.log(wert);
+        if ( wert == 0) {
+            clearInterval(meinI);
+        }
+        $('#bar').val(wert - 1/sekunden/stufen);
+    }, 1000/stufen);
+
+}; */
+
+var countdownBarDiv = function (sekunden) {
+    var stufen = 100;
+    var wert = 1
+    var meinI =setInterval(function(){
+        wert -= 1/sekunden/stufen;
+        console.log(wert);
+        if ( wert <= 0) {
+            clearInterval(meinI);
+        }
+        $('#progress div').css({width : (wert*100) + '%'});
+
+        if ( wert < 0.5) {
+            $('#progress div').css({background: 'orange'});
+        };
+
+        if ( wert < 0.25) {
+            $('#progress div').css({background: 'red'});
+        };
+
+
+    }, 1000/stufen);
+
+};
+
+ /*
+            var berechung = 100;
+            console.log(berechung);
+            var prozent = 100;
+        var countdownBar = function(sekunden) {
+            if (berechnung === 100) { 
+                console.log(berechnung);
+            var berechnung = 100 / sekunden;
+        }
+            $('#bar').val(prozent);
+            prozent = prozent - berechnung;
+            console.log(prozent);
+    
+            if( berechnung <= 0 ) return;
+
+            setTimeout ( function() {
+            countdownBar(--berechnung);
+        }, 1000);
+};  */
+
+
+        
+
+        $(document).on('click', '#btn', function() {
+            countdownBarDiv(5);
+            
+
+
+
+        })
+
+    </script>
+    <style>
+    #bar {
+        height: 30px;
+    }
+
+    #progress {
+        border: 1px solid black;
+        width: 300px;
+        height: 30px;
+    }
+
+    #progress div {
+        width: 100%;
+        height: 100%;
+        background-color: green;
+        transition: background 2.5s;
+    }
+
+    </style>
+</head>
+<body>
+
+    <div id="progress">
+        <div>
+
+        </div>
+    </div>
+    
+    <progress id="bar" value="100" max="1"></progress> 
+    <button id="btn">Los</button>
+
+</body>
+</html>

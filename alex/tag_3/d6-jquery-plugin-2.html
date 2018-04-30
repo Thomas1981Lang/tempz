@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="jquery-rot.1.0.0.js"></script>
+
+	<script>
+		$.fn.colorNumberRegExp = function () {
+			return this.each(function () {
+				var neu = '';
+				var inhalt = $(this).html();
+
+				var test = inhalt.replace(/([0-9])+/g, '<n>$1</n>');
+
+				$(this).html(test);
+				$('n').css({
+					'color': 'red',
+					'font-weight': 'bolder'
+				});
+				console.log(test);
+
+			})
+
+		}
+
+
+
+		$.fn.colorNumber = function () {
+
+			return this.each(function () {
+				var inhalt = $(this).html(),
+					neu = '',
+					tag = false;
+				for (var i in inhalt) {
+					console.log(inhalt[i]); //Buchstabe
+					if (inhalt[i == '<']) {
+						tag = true;
+					}
+					if (inhalt[i == '>']) {
+						tag = false;
+					}
+
+					neu += isFinite(inhalt[i]) && inhalt[i] != '' && !tag ? '<n>' + inhalt[i] + '</n>' : inhalt[i];
+					console.log(neu);
+				}
+				$(this).html(neu);
+				$('n', this).css({
+					color: 'red',
+					'font-weight': 'bold'
+				});
+			});
+		};
+
+
+
+
+		/* $.fn.colorize = function (options) {
+			var settings = $.extend({
+				r: 0,
+				g: 0,
+				b: 0
+			}, options);
+			var farbe = 'rgb(' + settings.r + ',' + settings.g + ',' + settings.b + ')';
+			console.log(farbe);
+			//return this.css({color: farbe});
+
+			//this.css({color: farbe});
+
+			return this.each(function () {
+				// this => ein Node Element aus dem jQuery Objekt
+				if ($(this).hasClass('nocolor') == false) {
+					$(this).css({
+						color: farbe
+					});
+				}
+
+			});
+
+		} */
+	</script>
+	<script>
+		$.fn.makeEMailLink = function () {
+
+			return this.each(function () {
+				var inhalt = $(this).html() + ' ',
+					neu = '',
+					wort = '',
+					email = false;
+
+				for (var i in inhalt) {
+
+					if (inhalt[i] == '@') {
+						email = true;
+					}
+
+					if (inhalt[i] == ' ') {
+						if (email) {
+							wort = '<a href="mailto:' + wort + '">' + wort + '</a>';
+						}
+						neu += wort + ' ';
+						wort = '';
+						email = false;
+
+					} else {
+						wort += inhalt[i];
+						console.log(wort);
+					}
+				}
+				$(this).html(neu);
+			});
+		}
+	</script>
+
+	<script>
+		$(document).ready(function () {
+
+			//$( 'p:first' ).css({color:'red'});
+			//$( 'p:first' ).rot().css({fontSize:20});
+			//$( 'p:last' ).colorize({b:255,r:150});
+
+
+			$('p').colorNumberRegExp();
+
+
+			//	$('p').makeEMailLink();
+
+
+
+		});
+	</script>
+	<style>
+	</style>
+</head>
+
+<body>
+	<p>Absatz 1: Blindtext 100 Blindtext</p>
+	<p class="nocolor">Absatz 2: Blindtext</p>
+	<p>Absatz 3: Blindtext</p>
+
+
+	<p>Das ist ein TEext und manchmal kommen im Text E-Mail-Adressen vor office@wifiwien.at und es wäre schön wenn alle auch klickbar
+		wären.
+	</p>
+</body>
+
+</html>

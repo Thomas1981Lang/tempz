@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+        
+        var Fahrrad = function() {
+            var preis = 500; // private Variable
+            this.farbe = 'weiss';
+            this.ausgabe = function() {
+                return 'Das Fahrad ist ' +  this.farbe;
+            }
+        }
+
+var mF = new Fahrrad();
+mF.farbe = 'rot';
+console.log(mF.ausgabe());
+
+
+//prototype
+
+var S = function() {
+    this.x = 0;
+    this.y = 0;
+    this.sum = function() {
+        return this.x + this.y;
+    }
+}
+
+var summe1 = new S();
+var summe2 = new S();
+summe1.x = 5;
+summe1.y = 10;
+console.log()
+
+    </script>
+
+    <style>
+    
+    </style>
+</head>
+<body>
+    
+</body>
+</html>

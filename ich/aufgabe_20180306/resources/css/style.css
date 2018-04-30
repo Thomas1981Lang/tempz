@@ -1,0 +1,135 @@
+/***************************
+********* Basic ************
+***************************/
+* {
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100.2vh;
+    background-color: aliceblue;
+    
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+}
+
+
+/***************************
+**** HEADER - SECTION  *****
+***************************/
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    background-color: antiquewhite;
+}
+
+.logo {
+padding: 10px 20px;
+}
+
+.title {
+    display: flex;
+    padding: 40px 20px;
+}
+
+.buchstaben {
+    width: 4.1rem;
+}
+
+/* .buchstaben .i {
+    padding: 0 0 0 15px;
+    
+} */
+
+.buchstaben h1 {
+    text-align: center;
+}
+
+.rechner {
+    padding-left: 15px;
+}
+ 
+/***************************
+******* MAIN -SECTION*******
+***************************/
+main {
+    text-align: center;
+}
+
+form {
+    width: 350px;
+    margin: 50px auto;
+    height: 20rem;
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    padding: 30px;
+}
+
+.feld {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+ 
+}
+
+label {
+    flex-basis: 4.5rem;
+    
+}
+
+button {
+    width: 269px;
+}
+
+/***************************
+***** FOOTER - SECTION *****
+***************************/
+footer {
+    position: sticky;
+    top: 100vh;
+    background-color: antiquewhite;
+    padding: 20px;
+}
+
+
+/***************************
+********* Basic ************
+***************************/
+/*
+http://www.emanueleferonato.com/2006/09/02/click-image-and-get-coordinates-with-javascript/
+
+https://stackoverflow.com/questions/3946539/determine-mouse-location-on-an-image
+
+https://stackoverflow.com/questions/2159044/getting-the-x-y-coordinates-of-a-mouse-click-on-an-image-with-jquery
+
+https://www.php.de/forum/webentwicklung/javascript-ajax-und-mehr/53635-erledigt-koordinaten-auf-bild-per-klick
+
+http://www.dcljs.de/faq/antwort.php?Antwort=dhtml_koordinaten
+
+https://www.quirksmode.org/dom/w3c_cssom.html
+
+https://www.quirksmode.org/js/events_properties.html#position
+
+https://forum.selfhtml.org/self/2010/mar/30/onclick-maus-koordinaten-ermitteln-fuer-absolute-positionierung/1438488
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+https://www.w3schools.com/jsref/event_clientx.asp
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

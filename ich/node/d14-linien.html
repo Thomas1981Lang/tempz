@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.3.1.min.js"></script>
+
+    <script>
+     $(document).on('click', 'button', function () {
+
+$.ajax({
+    url: 'http://localhost:5001/getWLData',
+    method: 'POST',
+    success: function (response) {
+        console.log(response)   
+    }
+});
+
+$.ajax({
+    url: 'http://localhost:5001/getWLHData',
+    method: 'POST',
+    success: function (response) {
+        console.log(response)   
+    }
+});
+
+$.ajax({
+    url: 'http://localhost:5001/getWLSData',
+    method: 'POST',
+    success: function (response) {
+        console.log(response)   
+    }
+});
+
+
+
+}); //document.on.click
+    
+    
+    </script>
+
+
+<style>
+
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.8em;
+    }
+</style>
+    
+    
+       
+</head>
+<body>
+   <button>Lade Liniendaten von WienerLinien</button>
+
+</body>
+</html>

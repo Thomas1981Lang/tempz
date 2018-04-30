@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zahlenraten</title>
+    <script src="wifi.funktionen.js"></script>
+    <script>
+        function restart() {
+            location.reload();
+        }
+        
+        var zufall = zufallsZahl(10);
+        var count = 1;
+
+        console.log(count);
+        console.log(zufall);
+        window.onload = function () {
+            document.getElementById('formular').onsubmit = function (event) {
+                event.preventDefault();
+                var zahl;
+
+                if (count <= 3) {
+                    zahl = document.getElementById('zahl').value * 1;
+                    console.log(zahl);
+                    if (zahl == zufall) {
+                        document.getElementById('ausgabe').innerHTML = 'Du hast richtig geraten. Magst du nochmal klick auf den Knopf unten';
+                        document.getElementById('restartKnopf').outerHTML = '<button onclick=restart()>Restart</button>';
+                    } else if (zahl <= zufall) {
+                        document.getElementById('ausgabe').innerHTML = 'Deine Zahl ist zu klein';
+                        count++
+                    } else if (zahl >= zufall) {
+                        document.getElementById('ausgabe').innerHTML = 'Deine Zahl ist zu groß';
+                        count++;
+                    }
+                } else {
+                    document.getElementById('ausgabe').innerHTML = 'Du hast leider verloren';
+                    document.getElementById('restartKnopf').outerHTML = '<button onclick=restart()>Restart</button>';
+                }
+
+            } //onsubmit
+        } //onload
+    </script>
+</head>
+
+<body>
+
+    <form action="" method="get"></form>
+    <h1>Herzlich Willkommen</h1>
+    <h2>beim Zahlen raten</h2>
+    <h3>Gib bitte eine Zahl zwischen 1 -10 ein</h3>
+    <form action="" id="formular">
+        <input type="text" id="zahl">
+        <button>raten</button>
+    </form>
+    <p id="ausgabe"></p>
+    <p id="restartKnopf"></p>
+    
+</body>
+
+</html>

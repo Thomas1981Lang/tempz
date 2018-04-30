@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flugzeuge</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+        var Flugzeug = function () {
+            var _this = this;
+            this.groesse = 10;
+            this.posX = 0;
+            this.posY = 0;
+            this.speed = 1;
+            this.richtung = 2; // Winkel 0-360
+
+            this.div = $('<div>')
+                .css({
+                    position: 'absolute',
+                    left: this.posX,
+                    top: this.posY,
+                    width: this.groesse,
+                    height: this.groesse,
+                    background: '#f00'
+                })
+                .appendTo('#feld');
+
+            this.flieg = function () {
+                this.posX += this.speed * Math.cos(this.richtung / 180 * Math.PI);
+                this.posY += this.speed * Math.sin(this.richtung / 180 * Math.PI);
+
+                if (this.posX <= 0 || this.posX >= $('#feld').width() - this.groesse) {
+                    this.richtung = 180 - this.richtung;
+                }
+
+                if (this.posY <= 0 || this.posY >= $('#feld').height() - this.groesse) {
+                    this.richtung = 360 - this.richtung;
+                }
+
+                this.div.css({
+                    left: this.posX,
+                    top: this.posY
+                });
+
+                setTimeout(function () {
+                    _this.flieg();
+                }, 40);
+            } // this.flieg
+
+            this.activate = function () {
+                
+                this.div.on('click', function () {
+                    _this.div.css({
+                        background: 'green'
+                    })
+                });
+            }
+
+            this.direction = function () {
+                console.log(this);
+                this.div.parent().on('click', function (e) { 
+                /* $('#feld').on('click', function () { */
+                var pX = e.pageX;
+                var pY = e.pageY;
+
+                var richtung = _this.div.parent().position()
+                _this.richtung = 180/ Math.PI * Math.atan2((_this.posX - pX),(_this.posX - pY))
+                console.log(_this.posX, _this.posY);
+                console.log(pX, pY);
+                /* console.log(_this.richtung); */
+                
+                    
+                })
+            };
+
+        
+
+
+        } // Flugzeug
+
+        $(document).ready(function () {
+            var testFlugzeug = new Flugzeug();
+            testFlugzeug.flieg();
+            testFlugzeug.activate();
+            testFlugzeug.direction();
+        });
+    </script>
+
+    <style>
+        #feld {
+            border: 1px solid #000;
+            width: 400px;
+            height: 600px;
+            position: relative;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="feld"></div>
+</body>
+
+</html>

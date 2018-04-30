@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax2....</title>
+    <script src="./jquery-3.3.1.min.js"></script>
+    <script>
+        $.ajax({
+            method: 'GET',
+            url: 'http://wifi.1av.at/527/ecb.php',
+            success: function (xml) {
+                /*  console.log(xml); */
+
+                var land;
+                var wechsel;
+
+                /*  $('Cube Cube Cube', xml).each(function () {
+                     console.log($(this).attr('currency'), $(this).attr('rate') * 1);
+                 }) */
+
+                $('<option>')
+                    .attr('value', 1)
+                    .html('EUR')
+                    .appendTo('#value1');
+                $('<option>')
+                    .attr('value', 1)
+                    .html('EUR')
+                    .appendTo('#value2');
+
+                $('Cube Cube Cube', xml).each(function () {
+                    land = $(this).attr('currency');
+
+                    wechsel = $(this).attr('rate') * 1;
+
+                    $('<option>')
+                        .attr('value', wechsel)
+                        .html(land)
+                        .appendTo('#value1');
+                    $('<option>')
+                        .attr('value', wechsel)
+                        .html(land)
+                        .appendTo('#value2');
+                })
+
+                $('#value2 option').eq(1).prop('selected', true);
+            }
+        });
+
+
+
+
+        $(document.ready).ready(function () {
+            $('form').on('input', function () {
+                var land1 = $('#value1 option:selected').text();
+                console.log(land1);
+                var land2 = $('#value2 option:selected').text();
+                console.log(land2);
+                var eingabe1 = $('#input1').val();
+                var landwechsel1 = $('#value1').val();
+                console.log('eingabe1', eingabe1);
+                console.log('landwechsel1', landwechsel1);
+
+                var ausgabe = $('#input2').val();
+                var landwechsel2 = $('#value2').val();
+
+                console.log('landwechsel2', landwechsel2);
+
+                var ergebnis = Math.round(eingabe1 * landwechsel2 / landwechsel1 * 100) / 100;
+                console.log(ergebnis);
+
+                $('#input2').val(ergebnis);
+
+                var flaggen = function (flag) {
+                    $.ajax({
+                        url: 'http://wifi.1av.at/527/getflag.php',
+                        method: 'POST',
+                        data: {
+                            currency: flag
+                        }, 
+                        dataType: 'json',
+                        success: function (responseDaten) { 
+                            console.log('flagge', responseDaten.flag);
+                        }
+                    });
+
+                };
+               
+ $('<img>').attr('src', flaggen(land1)).appendTo('#input1');
+
+
+            });
+        });
+    </script>
+</head>
+<!--  <option value="" data-rate=""></option> -->
+
+<body>
+    <form>
+        Ausgangswährung:
+        <input type="text" name="value1" id="input1">
+        <select name="ausgang" form="" id="value1">
+
+        </select>
+        <select name="wechsel" form="" id="value2">
+
+        </select>
+        Wechselwährung:
+        <input type="text" name="value2" id="input2" readonly>
+
+
+
+    </form>
+</body>
+
+</html>
